@@ -13,3 +13,7 @@ https://lucent-sprite-e1b79e.netlify.app/
 - [ ] add outer loop
 - [ ] add menu and pretty up UI
 - [ ] add sound
+
+## Credits
+
+All donuts, animals and emotes made by the great folks at https://www.kenney.nl/
