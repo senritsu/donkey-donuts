@@ -17,7 +17,7 @@ defineProps<{
       <Donut class="order" :donut="animal.order"></Donut>
     </Emote>
     <div class="avatar">
-      <img :src="`/public/animals/${animal.type}.png`" alt="" />
+      <img :src="`/animals/${animal.type}.png`" alt="" />
     </div>
   </div>
 </template>
