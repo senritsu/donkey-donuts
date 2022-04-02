@@ -1,5 +1,3 @@
-export interface Animal {}
-
 export type Base = 'donut_1' | 'donut_2' | 'donut_3'
 
 export type Frosting =
@@ -35,3 +33,43 @@ export interface Donut {
 export interface Order {
   donuts: Donut[]
 }
+
+export type AnimalType =
+  | 'bear'
+  | 'buffalo'
+  | 'chick'
+  | 'chicken'
+  | 'cow'
+  | 'crocodile'
+  | 'dog'
+  | 'duck'
+  | 'elephant'
+  | 'frog'
+  | 'giraffe'
+  | 'goat'
+  | 'gorilla'
+  | 'hippo'
+  | 'horse'
+  | 'monkey'
+  | 'moose'
+  | 'narwhal'
+  | 'owl'
+  | 'panda'
+  | 'parrot'
+  | 'penguin'
+  | 'pig'
+  | 'rabbit'
+  | 'rhino'
+  | 'sloth'
+  | 'snake'
+  | 'walrus'
+  | 'whale'
+  | 'zebra'
+
+export interface Animal {
+  type: AnimalType
+  order: Donut
+  // patience: number
+}
+
+export type EmoteType = '_' | 'heart' | 'hearts' | 'faceSad'

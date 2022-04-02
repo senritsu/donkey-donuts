@@ -3,8 +3,17 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import { onBeforeUnmount, ref } from 'vue'
 import Donut from './components/Donut.vue'
+import AnimalAvatar from './components/AnimalAvatar.vue'
 
-import generateDonut from './generate-donut'
+import type { Animal } from './types'
+
+import { generateDonut, generateAnimal } from './generate'
+
+const animals = [
+  generateAnimal(),
+  generateAnimal(),
+  generateAnimal(),
+] as Animal[]
 
 const seed = ref(Math.random())
 
@@ -18,7 +27,17 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <div class="animals">
+    <AnimalAvatar
+      v-for="(animal, i) in animals"
+      :key="i"
+      v-bind="{
+        animal,
+        isOrdering: true,
+        emote: Math.random() < 0.5 ? 'heart' : undefined,
+      }"
+    ></AnimalAvatar>
+  </div>
   <div :key="seed" class="donuts">
     <Donut v-for="i in 15" :donut="generateDonut()"></Donut>
   </div>
@@ -45,15 +64,17 @@ body,
   color: #487980;
 }
 
-#app img {
-  margin: 4em;
-}
-
 .donuts {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
   font-size: 10em;
+}
+
+.animals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>
