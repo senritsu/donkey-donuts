@@ -28,6 +28,7 @@ export function determineSatisfaction(customer: Customer, donut: Donut) {
   const count = matches.filter((x) => x).length
 
   switch (count) {
+    case 1:
     case 2:
       return 'ok'
     case 3:

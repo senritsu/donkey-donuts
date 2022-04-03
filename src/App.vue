@@ -1,45 +1,37 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import { onBeforeUnmount, ref } from 'vue'
-import Donut from './components/Donut.vue'
-import AnimalAvatar from './components/AnimalAvatar.vue'
+import { ref } from 'vue'
+import CustomerInteraction from './components/CustomerInteraction.vue'
+import DonutComponent from './components/Donut.vue'
+import type { Donut } from './types'
 
-import type { Customer } from './types'
-
-import { generateDonut, generateCustomer } from './generate'
-
-const customers = [
-  generateCustomer(),
-  generateCustomer(),
-  generateCustomer(),
-] as Customer[]
+import { generateDonut } from './generate'
 
 const seed = ref(Math.random())
+let donuts = ref<Donut[]>([])
+const selectedDonut = ref<Donut>()
 
-const interval = setInterval(() => {
+const nextCustomer = () => {
   seed.value = Math.random()
-}, 2500)
+  selectedDonut.value = undefined
+  donuts.value = Array.from({ length: 12 }).map(generateDonut)
+}
 
-onBeforeUnmount(() => {
-  clearInterval(interval)
-})
+nextCustomer()
 </script>
 
 <template>
-  <div class="animals">
-    <AnimalAvatar
-      v-for="(customer, i) in customers"
-      :key="i"
-      v-bind="{
-        customer,
-        isOrdering: true,
-        emote: Math.random() < 0.5 ? 'heart' : undefined,
-      }"
-    ></AnimalAvatar>
-  </div>
+  <CustomerInteraction
+    :key="seed"
+    @ordered="selectedDonut = undefined"
+    @gone="nextCustomer"
+    :donut="selectedDonut"
+  ></CustomerInteraction>
   <div :key="seed" class="donuts">
-    <Donut v-for="i in 15" :donut="generateDonut()"></Donut>
+    <DonutComponent
+      v-for="donut in donuts"
+      v-bind="{ donut }"
+      @click.native="selectedDonut = donut"
+    ></DonutComponent>
   </div>
 </template>
 

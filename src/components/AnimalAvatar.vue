@@ -6,7 +6,6 @@ import Emote from './Emote.vue'
 defineProps<{
   customer: Customer
   emote?: EmoteType
-  isOrdering: boolean
 }>()
 </script>
 

@@ -72,6 +72,14 @@ export interface Customer {
   // patience: number
 }
 
-export type EmoteType = '_' | 'heart' | 'hearts' | 'faceSad'
+export type EmoteType =
+  | '_'
+  | 'alert'
+  | 'exclamation'
+  | 'faceHappy'
+  | 'stars'
+  | 'heart'
+  | 'hearts'
+  | 'faceSad'
 
 export type CustomerSatisfaction = 'perfect' | 'ok' | 'bad'

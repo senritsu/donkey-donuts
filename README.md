@@ -9,7 +9,7 @@ https://lucent-sprite-e1b79e.netlify.app/
 - [x] render donuts
 - [ ] add PWA manifest and app icon
 - [x] add animals
-- [ ] add core gameplay loop
+- [x] add core gameplay loop
 - [ ] add outer loop
 - [ ] add menu and pretty up UI
 - [ ] add sound
