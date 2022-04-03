@@ -1,12 +1,16 @@
 import { assign, createMachine } from 'xstate'
 import type { Customer, Donut, CustomerSatisfaction } from '../types'
 
-interface GiveDonutEvent {
+export interface GiveDonutEvent {
   type: 'GIVE_DONUT'
   value: Donut
 }
 
-interface CustomerContext {
+export interface AnimationFinishedEvent {
+  type: 'ANIMATION_FINISHED'
+}
+
+export interface CustomerContext {
   customer: Customer
   givenDonut?: Donut
   satisfaction?: CustomerSatisfaction
@@ -41,32 +45,17 @@ export const createCustomerMachine = (customer: Customer) =>
       tsTypes: {} as import('./customer.machine.typegen').Typegen0,
       schema: {
         context: {} as CustomerContext,
-        events: {} as GiveDonutEvent,
-        services: {} as {
-          generateCustomer: { data: Customer }
-          animateArrival: { data: void }
-          animateOrder: { data: void }
-          animateFeedback: { data: void }
-          animateLeaving: { data: void }
-        },
+        events: {} as GiveDonutEvent | AnimationFinishedEvent,
       },
       context: {
         customer,
       },
       states: {
         arriving: {
-          invoke: {
-            id: 'animateArrival',
-            src: 'animateArrival',
-            onDone: 'ordering',
-          },
+          on: { ANIMATION_FINISHED: 'ordering' },
         },
         ordering: {
-          invoke: {
-            id: 'animateOrder',
-            src: 'animateOrder',
-            onDone: 'waiting',
-          },
+          on: { ANIMATION_FINISHED: 'waiting' },
         },
         waiting: {
           on: {
@@ -77,18 +66,10 @@ export const createCustomerMachine = (customer: Customer) =>
           },
         },
         givingFeedback: {
-          invoke: {
-            id: 'animateFeedback',
-            src: 'animateFeedback',
-            onDone: 'leaving',
-          },
+          on: { ANIMATION_FINISHED: 'leaving' },
         },
         leaving: {
-          invoke: {
-            id: 'animateLeaving',
-            src: 'animateLeaving',
-            onDone: 'gone',
-          },
+          on: { ANIMATION_FINISHED: 'gone' },
         },
         gone: {
           type: 'final',
@@ -103,12 +84,6 @@ export const createCustomerMachine = (customer: Customer) =>
             satisfaction: determineSatisfaction(context.customer, event.value),
           })
         ),
-      },
-      services: {
-        animateArrival: () => Promise.resolve(),
-        animateOrder: () => Promise.resolve(),
-        animateFeedback: () => Promise.resolve(),
-        animateLeaving: () => Promise.resolve(),
       },
     }
   )
