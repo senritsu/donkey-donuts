@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Animal, EmoteType } from '../types'
+import type { Customer, EmoteType } from '../types'
 import Donut from './Donut.vue'
 import Emote from './Emote.vue'
 
 defineProps<{
-  animal: Animal
+  customer: Customer
   emote?: EmoteType
   isOrdering: boolean
 }>()
@@ -14,10 +14,10 @@ defineProps<{
   <div class="animal">
     <Emote class="emote" v-if="emote" v-bind="{ emote }" />
     <Emote class="emote" v-else>
-      <Donut class="order" :donut="animal.order"></Donut>
+      <Donut class="order" :donut="customer.order"></Donut>
     </Emote>
     <div class="avatar">
-      <img :src="`/animals/${animal.type}.png`" alt="" />
+      <img :src="`/animals/${customer.animal}.png`" alt="" />
     </div>
   </div>
 </template>

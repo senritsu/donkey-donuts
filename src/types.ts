@@ -34,7 +34,7 @@ export interface Order {
   donuts: Donut[]
 }
 
-export type AnimalType =
+export type Animal =
   | 'bear'
   | 'buffalo'
   | 'chick'
@@ -66,10 +66,12 @@ export type AnimalType =
   | 'whale'
   | 'zebra'
 
-export interface Animal {
-  type: AnimalType
+export interface Customer {
+  animal: Animal
   order: Donut
   // patience: number
 }
 
 export type EmoteType = '_' | 'heart' | 'hearts' | 'faceSad'
+
+export type CustomerSatisfaction = 'perfect' | 'ok' | 'bad'

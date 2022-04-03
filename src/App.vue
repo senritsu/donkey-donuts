@@ -5,15 +5,15 @@ import { onBeforeUnmount, ref } from 'vue'
 import Donut from './components/Donut.vue'
 import AnimalAvatar from './components/AnimalAvatar.vue'
 
-import type { Animal } from './types'
+import type { Customer } from './types'
 
-import { generateDonut, generateAnimal } from './generate'
+import { generateDonut, generateCustomer } from './generate'
 
-const animals = [
-  generateAnimal(),
-  generateAnimal(),
-  generateAnimal(),
-] as Animal[]
+const customers = [
+  generateCustomer(),
+  generateCustomer(),
+  generateCustomer(),
+] as Customer[]
 
 const seed = ref(Math.random())
 
@@ -29,10 +29,10 @@ onBeforeUnmount(() => {
 <template>
   <div class="animals">
     <AnimalAvatar
-      v-for="(animal, i) in animals"
+      v-for="(customer, i) in customers"
       :key="i"
       v-bind="{
-        animal,
+        customer,
         isOrdering: true,
         emote: Math.random() < 0.5 ? 'heart' : undefined,
       }"

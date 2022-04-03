@@ -1,6 +1,6 @@
 import Chance from 'chance'
 
-import type { Donut, Animal } from './types'
+import type { Donut, Customer } from './types'
 
 const chance = new Chance()
 
@@ -34,9 +34,9 @@ export function generateDonut(): Donut {
   }
 }
 
-export function generateAnimal(): Animal {
+export function generateCustomer(): Customer {
   return {
-    type: chance.pickone([
+    animal: chance.pickone([
       'bear',
       'buffalo',
       'chick',
