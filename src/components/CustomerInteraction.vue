@@ -49,6 +49,7 @@ const emote = computed<EmoteType | undefined>(() => {
 const start = async () => {
   await wait(2)
   send('ANIMATION_FINISHED')
+  await wait(0.6)
   send('ANIMATION_FINISHED')
   emit('ordered')
 }
@@ -76,14 +77,7 @@ start()
 </script>
 
 <template>
-  <div
-    class="interaction"
-    :class="{
-      arriving: state.matches('arriving'),
-      feedback: state.matches('givingFeedback'),
-      leaving: state.matches('leaving'),
-    }"
-  >
+  <div class="interaction" :class="[state.value]">
     <AnimalAvatar v-bind="{ customer, emote }"></AnimalAvatar>
   </div>
 </template>
@@ -93,8 +87,12 @@ start()
   animation: 0.3s linear 1s wiggle infinite, 1s ease-out arrive;
 }
 
-.interaction.feedback {
-  animation: 0.4s linear feedback infinite;
+.interaction.ordering {
+  animation: 0.2s linear talk infinite;
+}
+
+.interaction.givingFeedback {
+  animation: 0.2s linear talk infinite;
 }
 
 .interaction.leaving {
@@ -113,12 +111,12 @@ start()
   }
 }
 
-@keyframes feedback {
+@keyframes talk {
   0% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
   100% {
     transform: scale(1);
